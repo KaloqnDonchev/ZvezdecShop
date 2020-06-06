@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Zvzdc Shop</title>
+</head>
+<body>
+    <h1>Welcome to <%= pageName %></h1>
+    <ul>
+    <% numbers.forEach((number) => { %>
+        <li><%= number %></li>
+    <% }) %>
+    </ul>
+    <h3><a href="./test">Go to our test page</a></h3>
+    <h1><a href="https://learn.co/lessons/using-ejs-in-express">Take a look at what is ejs</a></h1>
+    
+    <script src="js/test.js"></script>
+</body>
+</html>
