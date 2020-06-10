@@ -9,18 +9,9 @@
 </head>
 
 <body>
-    <div class="wraper">
-        <%- include("navigation.ejs") %>
-        <h1>Welcome to <%= pageName %></h1>
-        <ul>
-            <% numbers.forEach((number) => { %>
-            <li><%= number %></li>
-            <% }) %>
-        </ul>
-        <h3><a href="./test">Go to our test page</a></h3>
-        <h1><a href="https://learn.co/lessons/using-ejs-in-express">Take a look at what is ejs</a></h1>
-    </div>
-    <script src="js/test.js"></script>
+    <%- include("navigation.ejs") %>
+        <%- include("shopstorybox.ejs") %>
+
 </body>
 
 </html>
