@@ -1,5 +1,15 @@
 const express = require('express');
 const app = express();
+const MongoClient = require('mongodb').MongoClient;
+
+var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
+
+/*Connecting to the database*/
+MongoClient.connect(mongoUrl, function(err, db){
+    
+    console.log("Connected to the db");
+    
+});
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/webpages');
@@ -24,3 +34,20 @@ app.get('/test', (req, res) => {
 app.listen(3000, () => {
     console.log('Server up and running on port 3000');
 });
+
+
+
+
+// const funk = () =>{
+    
+// };
+
+// const object = {
+//     name:"az",
+//     asd:funk,
+// }
+
+// object.asd()
+
+// module.exports = object;
+
