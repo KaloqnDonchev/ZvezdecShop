@@ -1,0 +1,108 @@
+{
+    "shop": {
+        "womens" : {
+            "tattoos": [
+                {
+                    "name": "5in1",
+                    "url": "/womens/tattoos/5in1.jpg",
+                    "title": "Unique 5 Tattoos",
+                    "body": "These tattoos are from our last collection. Very fancy, very cool looking. Simple and beautiful.",
+                    "price": "49.99",
+                    "currency": "BGN",
+                    "stock": 13
+                },
+                {
+                    "name": "face",
+                    "url": "/womens/tattoos/face.jpg",
+                    "title": "Tripple Face",
+                    "body": "Awesomely looking girl face. Really enigmatic and interesting. Get it now!",
+                    "price": "29.99",
+                    "currency": "BGN",
+                    "stock": 10
+                },
+                {
+                    "name": "flower",
+                    "url": "/womens/tattoos/flower.jpg",
+                    "title": "Colorful Flower",
+                    "body": "Colorful Flower, simple, elegant and cute. Buy now!",
+                    "price": "29.99",
+                    "currency": "BGN",
+                    "stock": 3
+                },
+                {
+                    "name": "heart",
+                    "url": "/womens/tattoos/heart.jpg",
+                    "title": "Heart of Nature",
+                    "body": "For all nature lovers, heart filled with nature energy. Really cool-looking. Get yours today!",
+                    "price": "29.99",
+                    "currency": "BGN",
+                    "stock": 3
+                }
+            ],
+            "metal-and-rock": [
+                {
+                    "name": "tshirt1",
+                    "url": "/womens/MetalAndRock/tshirt1.jpg",
+                    "title": "Metal T-Shirt",
+                    "body": "Metal T-Shirt from the very last collection. Perfect for the summer. Stylish and Elegant.",
+                    "price": "39.99",
+                    "currency": "BGN",
+                    "sizes": ["xs", "s", "m", "l"],
+                    "stock": 20
+                },
+                {
+                    "name": "tshirt2",
+                    "url": "/womens/MetalAndRock/tshirt2.jpg",
+                    "title": "Rock T-Shirt",
+                    "body": "Rock T-Shirt from our new collection. Perfect for the spring. 100% Cotton.",
+                    "price": "39.99",
+                    "currency": "BGN",
+                    "sizes": ["s", "m", "l", "xl"],
+                    "stock": 0
+                },
+                {
+                    "name": "bring-me-the-horizon",
+                    "url": "/womens/MetalAndRock/bring-me-the-horizon.jpg",
+                    "title": "Bring me the horizon T-Shirt",
+                    "body": "Bring me the horizon T-Shirt from the autumn collection. Only for TRUE fans. 95% Cotton.",
+                    "price": "39.99",
+                    "currency": "BGN",
+                    "sizes": ["s", "m", "l", "xl"],
+                    "stock": 3
+                },
+                {
+                    "name": "nickel-back",
+                    "url": "/womens/MetalAndRock/nickel-back.jpg",
+                    "title": "NICKELBACK T-Shirt",
+                    "body": "Stylish-looking T-Shirt with NICKELBACK's logo. Top-seller. 100% Cotton.",
+                    "price": "69.99",
+                    "currency": "BGN",
+                    "sizes": ["xs", "s", "m", "l", "xl", "xxl"],
+                    "stock": 54
+                }
+            ],
+            "basic-clothes": [
+                {
+                    "name": "black-girl-magic",
+                    "url": "/womens/BasicClothes/bgm.jpg",
+                    "title": "Black Girl Magic Combo",
+                    "body": "Girl Combo product, simple, elegant and cute. Buy now!",
+                    "price": "59.99",
+                    "currency": "BGN",
+                    "sizes": ["xs", "s", "m"],
+                    "stock": 21
+                },
+                {
+                    "name": "roses",
+                    "url": "/womens/BasicClothes/roses.jpg",
+                    "title": "Black Roses Combo",
+                    "body": "Girl Combo product, simple, elegant and cute. Buy now!",
+                    "price": "99.99",
+                    "currency": "BGN",
+                    "sizes": ["xs", "s", "m", "l"],
+                    "stock": 13
+                }
+            ]
+        }
+    }
+}
