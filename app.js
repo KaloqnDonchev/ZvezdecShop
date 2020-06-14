@@ -6,15 +6,15 @@ var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test'
 let mongoDbObjects;
 
 /*Connecting to the database*/
-const client = new MongoClient(mongoUrl, { useNewUrlParser: true });
+const client = new MongoClient(mongoUrl, {  useNewUrlParser: true, useUnifiedTopology: true, });
 client.connect((err) => {
     const collection = client.db("shop").collection("products");
     // perform actions on the collection object
-    const cursor = collection.find().toArray().then((result) => {
+    collection.find().toArray().then((result) => {
         mongoDbObjects = result;
-    });
 
-    client.close();
+        client.close();
+    });
 });
 
 app.set('view engine', 'ejs');
@@ -46,7 +46,6 @@ app.get('/:gender', function (req, res) {
             res.render('index');
             renderError = false;
         }
-
     });
 
     if (renderError) {
