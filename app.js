@@ -49,7 +49,7 @@ app.get('/:gender', function (req, res) {
     });
 
     if (renderError) {
-        res.send('<html><body><h1>Error</h1></body></html>'); // Check this later
+        res.render('error');
     }
 });
 
@@ -71,7 +71,7 @@ app.get('/:gender/:product', function (req, res) {
     });
     
     if (renderError) {
-        res.send('<html><body><h1>Error</h1></body></html>');
+        res.render('index');
     }
 });
 
