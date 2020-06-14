@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<%- include('header.ejs') %>
 
 <body>
     <%- include("navigation.ejs") %>
-    <% items.forEach(function (item){ %>
-    <div id="<%= item.name  %>">
-        <a href="/<%= path %>/<%= item.name %>"><h1> <%= item.title %> </h1> </a>
-        <img src="/images<%= item.url %>">
-        <p> <%= item.body %> </p>
+    <div class="wrapper">
+        <div class="product-flex">    
+        <% items.forEach(function (item){ %>
+            <div class="product-container" id="<%= item.name  %>">
+                <a href="/<%= path %>/<%= item.name %>"><h1> <%= item.title %> </h1> </a>
+                <img src="/images<%= item.url %>">
+                <p> <%= item.body %> </p>
 
-        <h2>
-            <%= item.price %> 
-            <%= item.currency %> <br>
-        </h2>
-        
+                <h2>
+                    <%= item.price %> 
+                    <%= item.currency %> <br>
+                </h2>
+                
+            </div>
+
+        <% })%>
+        </div>
     </div>
-
-    <% })%>
 
     <%- include("footer.ejs") %>
 </body>
