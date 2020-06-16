@@ -33,17 +33,18 @@ app.get('/', (req, res) => {
     res.render('index', viewData);
 });
 
-app.get('/test', (req, res) => {
-    res.send('This is test page located on localhost:3000/test <br> Welcome to the backend!');
-});
-
 app.get('/:gender', function (req, res) {
     const genderKeys = Object.keys(mongoDbObjects[0]);
     let renderError = true;
 
     genderKeys.forEach(element => {
         if (req.params.gender === element) {
-            res.render('index');
+            var viewData = {
+                categories: mongoDbObjects[0][element],
+                path: req.params.gender,
+            };
+
+            res.render('categories', viewData);
             renderError = false;
         }
     });
@@ -59,10 +60,14 @@ app.get('/:gender/:product', function (req, res) {
 
     genderKeys.forEach(genderName => {
         if (req.params.gender === genderName) {
-            const productKeys = Object.keys(mongoDbObjects[0][genderName]);
-            productKeys.forEach(product => {
-                if (req.params.product === product) {
-                    res.render('index');
+            const productKeys = mongoDbObjects[0][genderName];
+            productKeys.forEach(item => {
+                if (req.params.product === item.name) {
+                    var viewData = {
+                        items: item.products,
+                        path: req.params.gender + '/' + req.params.product
+                    };
+                    res.render('PLP', viewData);
                     renderError = false;
                 }
 
@@ -71,13 +76,10 @@ app.get('/:gender/:product', function (req, res) {
     });
     
     if (renderError) {
-        res.render('index');
+        res.render('error');
     }
 });
 
 app.listen(3000, () => {
     console.log('Server up and running on port 3000');
 });
-
-
-
