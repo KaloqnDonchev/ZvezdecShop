@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
+const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
+
+
 
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
+
 
 /*Connecting to the database*/
 const client = new MongoClient(mongoUrl, {  useNewUrlParser: true, useUnifiedTopology: true, });
@@ -20,6 +24,9 @@ client.connect((err) => {
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/webpages');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
@@ -31,6 +38,15 @@ app.get('/', (req, res) => {
     };
 
     res.render('index', viewData);
+});
+
+app.get('/signup', function(req, res){
+    res.render('loginform');
+});
+
+app.post('/signup',(request,response) => {
+    console.log(request.body);
+    
 });
 
 app.get('/:gender', function (req, res) {
@@ -74,11 +90,13 @@ app.get('/:gender/:product', function (req, res) {
             });
         }
     });
-    
+
     if (renderError) {
         res.render('error');
     }
 });
+
+
 
 app.listen(3000, () => {
     console.log('Server up and running on port 3000');
