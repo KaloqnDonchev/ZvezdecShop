@@ -7,14 +7,44 @@ if (button) {
         const rusername = document.getElementById("rusername").value;
         const rpassword = document.getElementById("rpassword").value;
 
-        //Check if password 1 === password 2
-        //Check if email is valid
-        //FirstName and LastName atleast 2 symbols
+        const rconfirmpassword = document.getElementById('rconfirmpassword').value;
 
         const remail = document.getElementById('remail').value;
 
         const fname = document.getElementById('rfirstname').value;
-        const lname = document.getElementById('rlastname').value;
+        const lname = document.getElementById('rfamilyname').value;
+
+        const formelem = document.getElementById("form");
+        
+        const failmsg = document.createElement("p");
+        failmsg.id = "failmsg";
+
+        const existingFailMessage = document.getElementById('failmsg');
+        if (existingFailMessage) {
+            existingFailMessage.remove();
+        }
+
+        function displayError(errorMessage) {
+            failmsg.innerHTML = errorMessage;
+            formelem.prepend(failmsg);
+        }
+
+        if (rpassword != rconfirmpassword) {
+            displayError("Passwords don't match");
+            return;
+        }
+
+        let regexPattern = /\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/;
+        const match = remail.match(regexPattern);
+        if (!match) {
+            displayError("The email is not valid");
+            return;
+        }
+
+        if(fname.length < 2 && lname.length < 2){
+            displayError("Enter valid names");
+            return;
+        } 
 
         const ruser = {
             username: rusername,

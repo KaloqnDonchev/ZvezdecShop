@@ -4,7 +4,7 @@
         <%- include("navigation.ejs")%>
         <div class="wrapper">
             <div class="register">
-                <form>
+                <form id="form">
                     <div class="formElement">
                         <label for="rusername">Username</label>
                         <input type="text" id="rusername" name="Username">
@@ -33,7 +33,7 @@
                         <input type="text" id="rfamilyname" name="FamilyName">
                     </div>
 
-                    <input type="submit" value="Register" id="registerButton">
+                    <button type="submit" class="registerButton">Register</button>
 
                 </form>
             </div>
@@ -56,5 +56,5 @@
             </div>
         </div>
     </body>
-
+    <%- include("footer.ejs") %>
 </html>
