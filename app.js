@@ -8,18 +8,23 @@ const MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
 
+function newDBConnection() {
+    return new MongoClient(mongoUrl, {  useNewUrlParser: true, useUnifiedTopology: true, });
+}
 
 /*Connecting to the database*/
-const client = new MongoClient(mongoUrl, {  useNewUrlParser: true, useUnifiedTopology: true, });
-client.connect((err) => {
-    const collection = client.db("shop").collection("products");
+let client = newDBConnection();
+client.connect(() => {
+    const products = client.db("shop").collection("products");
     // perform actions on the collection object
-    collection.find().toArray().then((result) => {
+    products.find().toArray().then((result) => {
         mongoDbObjects = result;
 
         client.close();
     });
 });
+
+
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/webpages');
@@ -44,9 +49,29 @@ app.get('/signup', function(req, res){
     res.render('loginform');
 });
 
-app.post('/signup',(request,response) => {
-    console.log(request.body);
-    
+app.post('/signup', (request,response) => {
+    var userObject = request.body;
+
+    client = newDBConnection();
+    client.connect(async () => {
+        const users = await client.db("shop").collection("users");
+        const email = await users.findOne({
+            email: userObject.email
+        });
+
+        if (!email){
+            const user = await users.findOne({
+                username: userObject.username
+            });
+
+            if(!user){
+                await users.insertOne(userObject, (err,res) =>{
+                    if (err) throw err;
+                });
+            }
+        }
+        client.close();
+    });
 });
 
 app.get('/:gender', function (req, res) {
