@@ -1,0 +1,19 @@
+<%- include("../components/header.ejs") %>
+
+<body>
+    <%- include("../components/navigation.ejs") %>
+        <% categories.forEach(function (element) { %>
+
+            <div>
+                <a href="/<%= path %>/<%= element.name %>">
+                    <%= element.name %>
+                </a>
+            </div>
+
+            <% }) %>
+                <%- include("../components/footer.ejs") %>
+
+
+</body>
+
+</html>

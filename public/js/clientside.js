@@ -15,46 +15,51 @@ function displayError(errorMessage) {
 }
 
 function emailValidation() {
-let regexEmailPattern = /\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/;
+    let regexEmailPattern = /\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/;
     const match = remail().match(regexEmailPattern);
     if (!match) {
         displayError("The email is not valid");
-        return;
+        return false;
     }
+
+    return true;
 }
 
-function passwordMustContain(){
+function passwordMustContain() {
     let regexPasswordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     var matchPass = rpassword().match(regexPasswordPattern);
-    if(!matchPass) {
+    if (!matchPass) {
         displayError("Password must contain at least 6 characters, at least one letter and one number");
-        return;
-    } 
+        return false;
+    }
+
+    return true;
 }
 
 function matchingPasswords() {
     if (rpassword() != rconfirmpassword()) {
         displayError("Passwords don't match");
-        return;
+        return false;
     }
+
+    return true;
 }
 
 function passwordValidation() {
-    passwordMustContain();
-    matchingPasswords();
+    return passwordMustContain() && matchingPasswords();
 }
 
 function nameValidation() {
-    if(fname().length < 2 || lname().length < 2){
+    if (fname().length < 2 || lname().length < 2) {
         displayError("Enter valid names");
-        return;
-    } 
+        return false;
+    }
+
+    return true;
 }
 
 function validateForm() {
-    passwordValidation();
-    nameValidation();
-    emailValidation();
+    return passwordValidation() && nameValidation() && emailValidation();
 }
 
 const rusername = () => document.getElementById("rusername").value;
@@ -76,7 +81,7 @@ if (button) {
     button.addEventListener("click", (e) => {
         e.preventDefault();
 
-        validateForm();
+        if (!validateForm()) return null;
 
         const ruser = {
             username: rusername(),

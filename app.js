@@ -24,8 +24,6 @@ client.connect(() => {
     });
 });
 
-
-
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/webpages');
 
@@ -35,24 +33,24 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    // Currently looking for "index.ejs" inside /webpages
     var viewData = {
         pageName: 'Zvezdec Shop',
         currentPage: 'index page',
         numbers: [1, 3, 5, 4, 7, 9]
     };
 
-    res.render('index', viewData);
+    res.render('templates/index', viewData);
 });
 
 app.get('/signup', function(req, res){
-    res.render('loginform');
+    res.render('templates/loginform');
 });
 
 app.post('/signup', (request,response) => {
     var userObject = request.body;
 
     client = newDBConnection();
+
     client.connect(async () => {
         const users = await client.db("shop").collection("users");
         const email = await users.findOne({
@@ -70,8 +68,23 @@ app.post('/signup', (request,response) => {
                 });
             }
         }
+
         client.close();
+
+        let template = 'templates/registrationsuccessful';
+
+        if (email || user) template = 'templates/userexists';
+
+        const viewData = {
+            user: userObject,
+        };
+
+        res.render(template, viewData); 
     });
+});
+
+app.get('/contributions', (req, res) => {
+    res.render('templates/contributions');
 });
 
 app.get('/:gender', function (req, res) {
@@ -85,13 +98,13 @@ app.get('/:gender', function (req, res) {
                 path: req.params.gender,
             };
 
-            res.render('categories', viewData);
+            res.render('templates/categories', viewData);
             renderError = false;
         }
     });
 
     if (renderError) {
-        res.render('error');
+        res.render('templates/error');
     }
 });
 
@@ -108,7 +121,7 @@ app.get('/:gender/:product', function (req, res) {
                         items: item.products,
                         path: req.params.gender + '/' + req.params.product
                     };
-                    res.render('PLP', viewData);
+                    res.render('templates/PLP', viewData);
                     renderError = false;
                 }
 
