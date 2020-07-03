@@ -11,15 +11,17 @@
 
 <body>
     <%- include("navigation.ejs") %>
-    <% categories.forEach(function (element) { %>
+        <% categories.forEach(function (element) { %>
 
-        <div>
-           <a href="/<%= path %>/<%= element.name %>"><%= element.name %> </a>
-        </div>
-        
-    <% }) %>
-    <%- include("footer.ejs") %>
-       
+            <div>
+                <a href="/<%= path %>/<%= element.name %>">
+                    <%= element.name %>
+                </a>
+            </div>
+
+            <% }) %>
+                <%- include("footer.ejs") %>
+
 
 </body>
 
