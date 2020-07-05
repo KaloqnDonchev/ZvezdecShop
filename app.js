@@ -46,8 +46,18 @@ app.get('/signup', function(req, res){
     res.render('templates/loginform');
 });
 
+app.get('/login', function(req, res){
+    
+});
+
 app.post('/signup', (request,response) => {
     var userObject = request.body;
+    userObject.basket = {
+        items: {},
+        shipping: {},
+        paymentMethod: {}
+
+    };
 
     client = newDBConnection();
 
