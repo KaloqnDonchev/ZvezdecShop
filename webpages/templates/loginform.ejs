@@ -1,60 +1,78 @@
 <%- include("../components/header.ejs")%>
 
     <body>
-        <%- include("../components/navigation.ejs")%>
-        <div class="wrapper">
-            <div class="register">
-                <form id="form">
-                    <div class="formElement">
-                        <label for="rusername">Username</label>
-                        <input type="text" id="rusername" name="Username">
-                    </div>
+        <%- include("navigation.ejs")%>
+            <div class="wrapper">
+                <div class="register">
+                    <form id="form">
+                        <div class="formElement">
+                            <div class="rusername">
+                                <label for="rusername">Username</label>
+                                <input type="text" id="rusername" name="Username">
+                            </div>
+                        </div>
 
-                    <div class="formElement">
-                        <label for="rpassword">Password</label>
-                        <input type="password" id="rpassword" name="Password">
-                    </div>
-                    <div class="formElement">
-                        <label for="rconfirmpassword">Confirm Password</label>
-                        <input type="password" id="rconfirmpassword" name="Password">
-                    </div>
+                        <div class="formElement">
+                            <div class="rpassword">
+                                <label for="rpassword">Password</label>
+                                <input type="password" id="rpassword" name="Password">
+                            </div>
+                        </div>
+                        <div class="formElement">
+                            <div class="rconfirmpassword">
+                                <label for="rconfirmpassword">Confirm Password</label>
+                                <input type="password" id="rconfirmpassword" name="Password">
+                            </div>
+                        </div>
 
-                    <div class="formElement">
-                        <label for="remail">Email</label>
-                        <input type="text" id="remail" name="Email">
-                    </div>
+                        <div class="formElement">
+                            <div class="remail">
+                                <label for="remail">Email</label>
+                                <input type="text" id="remail" name="Email">
+                            </div>
+                        </div>
 
-                    <div class="formElement">
-                        <label for="rfirstname">First Name</label>
-                        <input type="text" id="rfirstname" name="FirstName">
-                    </div>
-                    <div class="formElement">
-                        <label for="rfamilyname">Family Name</label>
-                        <input type="text" id="rfamilyname" name="FamilyName">
-                    </div>
+                        <div class="formElement">
+                            <div class="rfirstname">
+                                <label for="rfirstname">First Name</label>
+                                <input type="text" id="rfirstname" name="FirstName">
+                            </div>
+                        </div>
+                        <div class="formElement">
+                            <div class="rfamilyname">
+                                <label for="rfamilyname">Family Name</label>
+                                <input type="text" id="rfamilyname" name="FamilyName">
+                            </div>
+                        </div>
 
-                    <button type="submit" class="registerButton">Register</button>
+                        <button class="regbutton" type="submit" class="registerButton">Register</button>
 
-                </form>
+                    </form>
+                </div>
+
+                <div class="login hidden">
+                    <form>
+                        <div class="formElement">
+                            <label for="lusername">Username</label>
+                            <input type="text" id="lusername" name="Username">
+                        </div>
+
+                        <div class="formElement">
+                            <label for="lpassword">Password</label>
+                            <input type="password" id="lpassword" name="Password">
+                        </div>
+
+                        <input type="submit" value="Login" id="loginbtn">
+
+                    </form>
+                </div>
             </div>
-
-            <div class="login hidden">
-                <form>
-                    <div class="formElement">
-                        <label for="lusername">Username</label>
-                        <input type="text" id="lusername" name="Username">
-                    </div>
-
-                    <div class="formElement">
-                        <label for="lpassword">Password</label>
-                        <input type="password" id="lpassword" name="Password">
-                    </div>
-
-                    <input type="submit" value="Login" id="loginbtn">
-
-                </form>
-            </div>
-        </div>
     </body>
-    <%- include("../components/footer.ejs") %>
-</html>
+    <<<<<<< HEAD:webpages/templates/loginform.ejs <%- include( "../components/footer.ejs") %>
+
+        </html>
+        =======
+        <%- include("footer.ejs") %>
+
+            </html>
+            >>>>>>> 897c0ad... register styling:webpages/loginform.ejs
