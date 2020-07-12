@@ -87,6 +87,10 @@ app.get('/contributions', (req, res) => {
     res.render('templates/contributions');
 });
 
+app.get('/itemboxes', (req, res) => {
+    res.render('templates/itemboxes');
+});
+
 app.get('/:gender', function (req, res) {
     const genderKeys = Object.keys(mongoDbObjects[0]);
     let renderError = true;
