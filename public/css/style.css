@@ -504,7 +504,8 @@ li.dropdown {
     padding-top: 5px;
 }
 
-.cart, .shopping-cart {
+.cart,
+.shopping-cart {
     fill: #fff;
 }
 
@@ -514,6 +515,28 @@ li.cart:hover {
 
 .cart .shoppingcart {
     background-color: transparent;
+}
+
+.shopcart-dropdowncontent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #265155;
+    width: 200px;
+    height: 100px;
+    margin: 0;
+}
+
+.shopcart-dropdowncontent a {
+    display: block;
+}
+
+.dropdown:hover .shopcart-dropdowncontent {
+    display: block;
+}
+
+.shopcart-dropdowncontent :hover {
+    background-color: #357078;
 }
 
 
@@ -564,6 +587,15 @@ h1 {
 
 .inverted {
     flex-direction: row-reverse;
+}
+
+
+/* test for dropdown menu on cart*/
+
+.cart {
+    color: white;
+    font-size: 16px;
+    border: none;
 }
 
 
