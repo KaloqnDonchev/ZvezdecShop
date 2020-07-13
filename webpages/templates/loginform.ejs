@@ -1,73 +1,78 @@
 <%- include("../components/header.ejs")%>
 
-    <body>
-        <%- include("../components/navigation.ejs")%>
-            <div class="wrapper">
-                <div class="register">
-                    <form id="register-form">
-                        <div class="formElement">
-                            <div class="rusername register-input-field orange-input">
-                                <label for="rusername">Username</label>
-                                <input type="text" id="rusername" name="Username">
-                            </div>
-                        </div>
-
-                        <div class="formElement">
-                            <div class="rpassword register-input-field green-input">
-                                <label for="rpassword">Password</label>
-                                <input type="password" id="rpassword" name="Password">
-                            </div>
-                        </div>
-                        <div class="formElement">
-                            <div class="rconfirmpassword register-input-field orange-input">
-                                <label for="rconfirmpassword">Confirm Password</label>
-                                <input type="password" id="rconfirmpassword" name="Password">
-                            </div>
-                        </div>
-
-                        <div class="formElement">
-                            <div class="remail register-input-field green-input">
-                                <label for="remail">Email</label>
-                                <input type="text" id="remail" name="Email">
-                            </div>
-                        </div>
-
-                        <div class="formElement">
-                            <div class="rfirstname register-input-field orange-input">
-                                <label for="rfirstname">First Name</label>
-                                <input type="text" id="rfirstname" name="FirstName">
-                            </div>
-                        </div>
-                        <div class="formElement">
-                            <div class="rfamilyname register-input-field green-input">
-                                <label for="rfamilyname">Family Name</label>
-                                <input type="text" id="rfamilyname" name="FamilyName">
-                            </div>
-                        </div>
-
-                        <button class="regbutton" type="submit" class="registerButton">Register</button>
-
-                    </form>
+<body>
+    <%- include("../components/navigation.ejs")%>
+    <div class="wrapper">
+        <% if(currentPage=='signup'){ %>
+        <div class="register">
+            <form id="register-form">
+                <div class="formElement">
+                    <div class="rusername register-input-field orange-input">
+                        <label for="rusername">Username</label>
+                        <input type="text" id="rusername" name="Username">
+                    </div>
                 </div>
 
-                <div class="login hidden">
-                    <form>
-                        <div class="formElement">
-                            <label for="lusername">Username</label>
-                            <input type="text" id="lusername" name="Username">
-                        </div>
-
-                        <div class="formElement">
-                            <label for="lpassword">Password</label>
-                            <input type="password" id="lpassword" name="Password">
-                        </div>
-
-                        <input type="submit" value="Login" id="loginbtn">
-
-                    </form>
+                <div class="formElement">
+                    <div class="rpassword register-input-field green-input">
+                        <label for="rpassword">Password</label>
+                        <input type="password" id="rpassword" name="Password">
+                    </div>
                 </div>
-            </div>
-    </body>
-    <%- include( "../components/footer.ejs") %>
+                <div class="formElement">
+                    <div class="rconfirmpassword register-input-field orange-input">
+                        <label for="rconfirmpassword">Confirm Password</label>
+                        <input type="password" id="rconfirmpassword" name="Password">
+                    </div>
+                </div>
 
-        </html>
+                <div class="formElement">
+                    <div class="remail register-input-field green-input">
+                        <label for="remail">Email</label>
+                        <input type="text" id="remail" name="Email">
+                    </div>
+                </div>
+
+                <div class="formElement">
+                    <div class="rfirstname register-input-field orange-input">
+                        <label for="rfirstname">First Name</label>
+                        <input type="text" id="rfirstname" name="FirstName">
+                    </div>
+                </div>
+                <div class="formElement">
+                    <div class="rfamilyname register-input-field green-input">
+                        <label for="rfamilyname">Family Name</label>
+                        <input type="text" id="rfamilyname" name="FamilyName">
+                    </div>
+                </div>
+
+                <button type="submit" class="registerButton regbutton">Register</button>
+            </form>
+        </div>
+        <% } %>
+
+        <% if (currentPage=='login'){ %>
+
+        <div class="login">
+            <form>
+                <div class="formElement">
+                    <label for="lusername">Username</label>
+                    <input type="text" id="lusername" name="Username">
+                </div>
+
+                <div class="formElement">
+                    <label for="lpassword">Password</label>
+                    <input type="password" id="lpassword" name="Password">
+                </div>
+
+                <input type="submit" value="Login" id="loginbtn">
+
+            </form>
+        </div>
+    </div>
+    <% } %>
+    </div>
+</body>
+<%- include( "../components/footer.ejs") %>
+
+</html>

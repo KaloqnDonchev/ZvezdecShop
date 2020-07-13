@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
 
-
-
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
 
@@ -43,11 +41,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/signup', function(req, res){
-    res.render('templates/loginform');
-});
+    var viewData = {
+        currentPage: 'signup'
+    };
 
-app.get('/login', function(req, res){
-    
+    res.render('templates/loginform',viewData);
 });
 
 app.post('/signup', (request,response) => {
@@ -62,34 +60,65 @@ app.post('/signup', (request,response) => {
     client = newDBConnection();
 
     client.connect(async () => {
-        const users = await client.db("shop").collection("users");
-        const email = await users.findOne({
+        const userDB = await client.db("shop").collection("users");
+        const email = await userDB.findOne({
             email: userObject.email
         });
 
-        if (!email){
-            const user = await users.findOne({
-                username: userObject.username
-            });
+        const user = await userDB.findOne({
+            username: userObject.username
+        });
 
-            if(!user){
-                await users.insertOne(userObject, (err,res) =>{
-                    if (err) throw err;
-                });
-            }
+        if (!email && !user){
+            await userDB.insertOne(userObject, (err,res) =>{
+                if (err) throw err;
+            });
         }
 
         client.close();
 
-        let template = 'templates/registrationsuccessful';
+        var result = {
+            response: "Registered successfully"
+        }
 
-        if (email || user) template = 'templates/userexists';
+        if (email || user) result.response = "User with this account already exists";
 
-        const viewData = {
-            user: userObject,
-        };
+        response.json(result); 
+    });
+});
 
-        res.render(template, viewData); 
+app.get('/login', function(req, res){
+    const viewData = {
+        currentPage: 'login',
+    };
+    res.render('templates/loginform', viewData);
+});
+
+app.post('/login', function(req,res){
+    var loginInfo = req.body;
+    
+    client = newDBConnection();
+    client.connect(async () => {
+        const userName = loginInfo.username;
+        const password = loginInfo.password;
+
+        const userObject = await client.db("shop").collection("users").findOne({
+            username: userName,
+            password: password
+        });
+
+        await client.close();
+
+        var viewData = {
+            user: userObject
+        }
+
+        if (userObject) {
+            console.log('logged in');
+            res.json(viewData);
+        } else {
+            res.send('Wrong username/password');
+        }
     });
 });
 
@@ -144,7 +173,7 @@ app.get('/:gender/:product', function (req, res) {
     });
 
     if (renderError) {
-        res.render('error');
+        res.render('templates/error');
     }
 });
 

@@ -11,6 +11,7 @@ function displayError(errorMessage) {
     var message = failmsg();
     message.id = 'failmsg';
     message.innerHTML = errorMessage;
+    message.classList.add("errorMessage")
     formelem().prepend(message);
 }
 
@@ -72,7 +73,7 @@ const remail = () => document.getElementById('remail').value;
 const fname = () => document.getElementById('rfirstname').value;
 const lname = () => document.getElementById('rfamilyname').value;
 
-const formelem = () => document.getElementById("form");
+const formelem = () => document.querySelector("form");
 const failmsg = () => document.createElement("p");
 
 const button = document.querySelector(".registerButton");
@@ -93,9 +94,68 @@ if (button) {
             }
         };
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "signup", true);
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.send(JSON.stringify(ruser));
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(ruser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        
+        // send post request
+        fetch('/signup', options).then((responseAsString) => {
+            console.log(responseAsString);
+           return responseAsString.json();
+        }).then((messageObject) => {
+            console.log(messageObject);
+           displayError(messageObject.response);
+        }).catch((err) => console.error(err));
+
+
     });
 }
+
+const buttonLogin = document.getElementById("loginbtn");
+
+if(buttonLogin){
+    buttonLogin.addEventListener("click", (event) =>{
+
+        event.preventDefault();
+
+        const username = document.getElementById("lusername").value;
+        const password = document.getElementById("lpassword").value;
+
+        const luser = {
+            username: username,
+            password: password
+        }
+        
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(luser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        
+        // send post request
+        fetch('/login', options).then((responseAsString) => {
+           return responseAsString.json();
+        }).then((userObject) => {
+            var objectAsString = JSON.stringify(userObject);
+            localStorage.setItem("user", objectAsString);
+            
+        }).catch((err) => console.error(err));
+    });
+
+    
+}
+
+var userString = localStorage.getItem("user");
+    
+    if(userString){
+        var navRegister = document.getElementById("navigation-register-button");
+        var userObject = JSON.parse(userString);
+        navRegister.textContent = userObject.user.username;
+    }

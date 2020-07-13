@@ -920,3 +920,8 @@ h1 {
     float: right;
     margin-right: 200px;
 }
+
+.errorMessage{
+    color: #357078;
+    font-size: 18px;
+}
