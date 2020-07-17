@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
-
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
 
+var crypto = require('crypto');
+const salt = "nqkvasol";
+
 function newDBConnection() {
-    return new MongoClient(mongoUrl, {  useNewUrlParser: true, useUnifiedTopology: true, });
+    return new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, });
 }
 
 /*Connecting to the database*/
@@ -40,15 +42,15 @@ app.get('/', (req, res) => {
     res.render('templates/index', viewData);
 });
 
-app.get('/signup', function(req, res){
+app.get('/signup', function (req, res) {
     var viewData = {
         currentPage: 'signup'
     };
 
-    res.render('templates/loginform',viewData);
+    res.render('templates/loginform', viewData);
 });
 
-app.post('/signup', (request,response) => {
+app.post('/signup', (request, response) => {
     var userObject = request.body;
     userObject.basket = {
         items: {},
@@ -68,9 +70,14 @@ app.post('/signup', (request,response) => {
         const user = await userDB.findOne({
             username: userObject.username
         });
+        if (!email && !user) {
+            var mykey = crypto.createCipher('aes-128-cbc', salt);
+            var mystr = mykey.update(userObject.password, 'utf8', 'hex');
+            mystr += mykey.final('hex');
 
-        if (!email && !user){
-            await userDB.insertOne(userObject, (err,res) =>{
+            userObject.password = mystr;
+
+            await userDB.insertOne(userObject, (err, res) => {
                 if (err) throw err;
             });
         }
@@ -83,22 +90,28 @@ app.post('/signup', (request,response) => {
 
         if (email || user) result.response = "User with this account already exists";
 
-        response.json(result); 
+        response.json(result);
     });
 });
 
-app.get('/login', function(req, res){
+app.get('/login', function (req, res) {
     const viewData = {
         currentPage: 'login',
     };
     res.render('templates/loginform', viewData);
 });
 
-app.post('/login', function(req,res){
+app.post('/login', function (req, res) {
     var loginInfo = req.body;
-    
+
     client = newDBConnection();
     client.connect(async () => {
+        var mykey = crypto.createCipher('aes-128-cbc', salt);
+        var mystr = mykey.update(loginInfo.password, 'utf8', 'hex');
+        mystr += mykey.final('hex');
+
+        loginInfo.password = mystr;
+
         const userName = loginInfo.username;
         const password = loginInfo.password;
 

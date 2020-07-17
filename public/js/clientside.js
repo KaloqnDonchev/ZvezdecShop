@@ -102,14 +102,14 @@ if (button) {
                 'Content-Type': 'application/json'
             }
         }
-        
+
         // send post request
         fetch('/signup', options).then((responseAsString) => {
             console.log(responseAsString);
-           return responseAsString.json();
+            return responseAsString.json();
         }).then((messageObject) => {
             console.log(messageObject);
-           displayError(messageObject.response);
+            displayError(messageObject.response);
         }).catch((err) => console.error(err));
 
 
@@ -118,8 +118,8 @@ if (button) {
 
 const buttonLogin = document.getElementById("loginbtn");
 
-if(buttonLogin){
-    buttonLogin.addEventListener("click", (event) =>{
+if (buttonLogin) {
+    buttonLogin.addEventListener("click", (event) => {
 
         event.preventDefault();
 
@@ -130,7 +130,7 @@ if(buttonLogin){
             username: username,
             password: password
         }
-        
+
         const options = {
             method: 'POST',
             body: JSON.stringify(luser),
@@ -138,24 +138,35 @@ if(buttonLogin){
                 'Content-Type': 'application/json'
             }
         }
-        
+
         // send post request
         fetch('/login', options).then((responseAsString) => {
-           return responseAsString.json();
+            return responseAsString.json();
         }).then((userObject) => {
             var objectAsString = JSON.stringify(userObject);
             localStorage.setItem("user", objectAsString);
-            
+            location.assign(document.location.origin);
         }).catch((err) => console.error(err));
     });
 
-    
 }
 
 var userString = localStorage.getItem("user");
-    
-    if(userString){
-        var navRegister = document.getElementById("navigation-register-button");
-        var userObject = JSON.parse(userString);
-        navRegister.textContent = userObject.user.username;
-    }
+
+if (userString) {
+    var navRegisterButton = document.getElementById("navigation-register-button");
+    var userObject = JSON.parse(userString);
+    navRegisterButton.textContent = userObject.user.username;
+
+    document.getElementById("login-button").remove();
+    var logout = document.getElementById("register-button");
+    logout.innerHTML = "Logout";
+
+    logout.addEventListener("click", (event) => {
+        event.preventDefault();
+        localStorage.removeItem("user");
+        location.assign(document.location.origin);
+
+    });
+
+}
