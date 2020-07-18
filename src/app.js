@@ -15,6 +15,8 @@ function newDBConnection() {
     return new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, });
 }
 
+/* */
+
 /*Connecting to the database*/
 let client = newDBConnection();
 client.connect(() => {
@@ -36,7 +38,15 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
+
+    var elem1 = mongoDbObjects[0].womens[0].products[1];
+    var elem2 = mongoDbObjects[0].womens[1].products[0];
+    var elem3 = mongoDbObjects[0].womens[2].products[0];
+
+    var featuredItems = [elem1, elem2, elem3];
+
     var viewData = {
+        featuredItems: featuredItems,
         pageName: 'Zvezdec Shop',
         currentPage: 'index page',
         numbers: [1, 3, 5, 4, 7, 9]

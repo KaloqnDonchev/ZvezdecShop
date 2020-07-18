@@ -56,14 +56,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new WebpackShellPlugin({onBuildEnd: ['nodemon dist/server.js']}),
+    new WebpackShellPlugin({onBuildEnd: ['nodemon dist/app.js']}),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new CopyPlugin({
       patterns: [
         { from: path.resolve('src/webpages/'), to: 'webpages', toType: 'dir' },
         { from: path.resolve('src/img/'), to: 'img', toType: 'dir' },
-        { from: path.resolve('.env'), to: '.env', toType: 'file' }
+        { from: path.resolve('.env'), to: '.env', toType: 'file' },
+        { from: path.resolve('src/app.js'), to: 'app.js', toType: 'file' }
       ],
     }),
   ]
