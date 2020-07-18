@@ -2,11 +2,14 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
+const crypto = require('crypto');
+
+require('dotenv').config();
+
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
 
-var crypto = require('crypto');
-const salt = "nqkvasol";
+const salt = process.env.ENCRYPTION_SALT;
 
 function newDBConnection() {
     return new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, });
@@ -30,7 +33,7 @@ app.set('views', __dirname + '/webpages');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
     var viewData = {
@@ -62,7 +65,7 @@ app.post('/signup', (request, response) => {
     client = newDBConnection();
 
     client.connect(async () => {
-        const userDB = await client.db("shop").collection("users");
+        const userDB = client.db("shop").collection("users");
         const email = await userDB.findOne({
             email: userObject.email
         });
@@ -77,8 +80,9 @@ app.post('/signup', (request, response) => {
 
             userObject.password = mystr;
 
-            await userDB.insertOne(userObject, (err, res) => {
-                if (err) throw err;
+            userDB.insertOne(userObject, (err, res) => {
+                if (err)
+                    throw err;
             });
         }
 
@@ -190,8 +194,8 @@ app.get('/:gender/:product', function (req, res) {
     }
 });
 
+const PORT = process.env.PORT || 3000
 
-
-app.listen(3000, () => {
-    console.log('Server up and running on port 3000');
+app.listen(PORT, () => {
+    console.log(`Server up and running on port ${PORT}`);
 });
