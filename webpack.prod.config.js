@@ -1,9 +1,6 @@
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-
 
 module.exports = {
   entry: {
@@ -24,8 +21,7 @@ module.exports = {
         cache: true,
         parallel: true,
         sourceMap: true // set to true if you want JS source maps
-      }),
-      new OptimizeCSSAssetsPlugin({})
+      })
     ]
   },
   module: {
@@ -39,39 +35,20 @@ module.exports = {
         }
       },
       {
-        // Loads the javacript into html template provided.
-        // Entry point is set below in HtmlWebPackPlugin in Plugins 
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: { minimize: true }
-          }
-        ]
-      },
-      {
         // Loads images into CSS and Javascript files
         test: /\.jpg$/,
         use: [{loader: 'url-loader'}]
-      },
-      {
-        // Loads CSS into a file when you import it via Javascript
-        // Rules are set in MiniCssExtractPlugin
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
+      }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
-    }),
     new CopyPlugin({
       patterns: [
         { from: path.resolve('src/webpages/'), to: 'webpages', toType: 'dir' },
         { from: path.resolve('src/img/'), to: 'img', toType: 'dir' },
-        { from: path.resolve('.env'), to: '.env', toType: 'file' }
+        { from: path.resolve('.env'), to: '.env', toType: 'file' },
+        { from: path.resolve('src/app.js'), to: 'app.js', toType: 'file' },
+        { from: path.resolve('src/css/style.css'), to: 'css/style.css', toType: 'file' }
       ],
     }),
   ]

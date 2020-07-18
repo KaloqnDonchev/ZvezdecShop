@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
-
 module.exports = {
   entry: {
     main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/index.js']
@@ -35,21 +34,6 @@ module.exports = {
         loader: "babel-loader",
       },
       {
-        // Loads the javacript into html template provided.
-        // Entry point is set below in HtmlWebPackPlugin in Plugins 
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            //options: { minimize: true }
-          }
-        ]
-      },
-      { 
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      },
-      {
        test: /\.(png|svg|jpg|gif)$/,
        use: ['file-loader']
       }
@@ -64,7 +48,8 @@ module.exports = {
         { from: path.resolve('src/webpages/'), to: 'webpages', toType: 'dir' },
         { from: path.resolve('src/img/'), to: 'img', toType: 'dir' },
         { from: path.resolve('.env'), to: '.env', toType: 'file' },
-        { from: path.resolve('src/app.js'), to: 'app.js', toType: 'file' }
+        { from: path.resolve('src/app.js'), to: 'app.js', toType: 'file' },
+        { from: path.resolve('src/css/style.css'), to: 'css/style.css', toType: 'file' }
       ],
     }),
   ]

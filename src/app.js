@@ -1,5 +1,12 @@
 const express = require('express');
 const app = express();
+
+const webpack = require('webpack');
+const config = require('../webpack.dev.config.js');
+const compiler = webpack(config);
+
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
 const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
 const crypto = require('crypto');
@@ -36,9 +43,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname));
+  
+app.use(webpackHotMiddleware(compiler));
 
 app.get('/', (req, res) => {
-
     var elem1 = mongoDbObjects[0].womens[0].products[1];
     var elem2 = mongoDbObjects[0].womens[1].products[0];
     var elem3 = mongoDbObjects[0].womens[2].products[0];
@@ -146,6 +154,12 @@ app.post('/login', function (req, res) {
         } else {
             res.send('Wrong username/password');
         }
+    });
+});
+
+app.get('/product', (req, res) => {
+    res.render('templates/PDP', {
+        item: mongoDbObjects[0].womens[0].products[0],
     });
 });
 

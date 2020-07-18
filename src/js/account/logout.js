@@ -8,6 +8,7 @@ var init = () => {
 
         document.getElementById("login-button").remove();
         var logout = document.getElementById("register-button");
+        logout.removeAttribute('href');
         logout.innerHTML = "Logout";
 
         logout.addEventListener("click", (event) => {
