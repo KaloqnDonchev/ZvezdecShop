@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
 
 module.exports = {
   entry: {
@@ -54,6 +56,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new WebpackShellPlugin({onBuildEnd: ['nodemon dist/server.js']}),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new CopyPlugin({
