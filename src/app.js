@@ -7,7 +7,7 @@ const compiler = webpack(config);
 
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const crypto = require('crypto');
 
@@ -19,15 +19,16 @@ let mongoDbObjects;
 const salt = process.env.ENCRYPTION_SALT;
 
 function newDBConnection() {
-    return new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, });
+    return new MongoClient(mongoUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
 }
-
-/* */
 
 /*Connecting to the database*/
 let client = newDBConnection();
 client.connect(() => {
-    const products = client.db("shop").collection("products");
+    const products = client.db('shop').collection('products');
     // perform actions on the collection object
     products.find().toArray().then((result) => {
         mongoDbObjects = result;
@@ -39,7 +40,9 @@ client.connect(() => {
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/webpages');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname));
@@ -83,7 +86,7 @@ app.post('/signup', (request, response) => {
     client = newDBConnection();
 
     client.connect(async () => {
-        const userDB = client.db("shop").collection("users");
+        const userDB = client.db('shop').collection('users');
         const email = await userDB.findOne({
             email: userObject.email
         });
@@ -107,10 +110,10 @@ app.post('/signup', (request, response) => {
         client.close();
 
         var result = {
-            response: "Registered successfully"
-        }
+            response: 'Registered successfully'
+        };
 
-        if (email || user) result.response = "User with this account already exists";
+        if (email || user) result.response = 'User with this account already exists';
 
         response.json(result);
     });
@@ -137,7 +140,7 @@ app.post('/login', function (req, res) {
         const userName = loginInfo.username;
         const password = loginInfo.password;
 
-        const userObject = await client.db("shop").collection("users").findOne({
+        const userObject = await client.db('shop').collection('users').findOne({
             username: userName,
             password: password
         });
@@ -146,7 +149,7 @@ app.post('/login', function (req, res) {
 
         var viewData = {
             user: userObject
-        }
+        };
 
         if (userObject) {
             console.log('logged in');
@@ -162,7 +165,7 @@ app.get('/catalog', (req, res) => {
     var gender = mongoDbObjects[0].db;
     var viewData = {
         catalog: gender
-    }
+    };
 
     res.render('templates/catalog', viewData);
 });
@@ -240,7 +243,7 @@ app.get('/:gender/:product/:id', function (req, res) {
                             res.render('templates/PDP', viewData);
                             renderError = false;
                         }
-                    })
+                    });
 
                 }
 
@@ -252,7 +255,8 @@ app.get('/:gender/:product/:id', function (req, res) {
         res.render('templates/error');
     }
 });
-const PORT = process.env.PORT || 3000
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Server up and running on port ${PORT}`);

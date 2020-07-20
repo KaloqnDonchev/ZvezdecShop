@@ -1,24 +1,24 @@
 var init = () => {
-    var userString = localStorage.getItem("user");
+    var userString = localStorage.getItem('user');
 
     if (userString) {
-        var navRegisterButton = document.getElementById("navigation-register-button");
+        var navRegisterButton = document.getElementById('navigation-register-button');
         var userObject = JSON.parse(userString);
         navRegisterButton.textContent = userObject.user.username;
 
-        document.getElementById("login-button").remove();
-        var logout = document.getElementById("register-button");
+        document.getElementById('login-button').remove();
+        var logout = document.getElementById('register-button');
         logout.removeAttribute('href');
-        logout.innerHTML = "Logout";
+        logout.innerHTML = 'Logout';
 
-        logout.addEventListener("click", (event) => {
+        logout.addEventListener('click', (event) => {
             event.preventDefault();
-            localStorage.removeItem("user");
+            localStorage.removeItem('user');
             location.assign(document.location.origin);
 
         });
     }
-}
+};
 
 var logout = {
     init: init

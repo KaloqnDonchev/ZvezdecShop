@@ -517,6 +517,10 @@ li.cart:hover {
     background-color: transparent;
 }
 
+#cssmenu .primary-menu li a#shopping-cart-link {
+    padding: 5px 16px;
+}
+
 .shopcart-dropdowncontent {
     display: none;
     position: absolute;
@@ -823,7 +827,6 @@ h1 {
 
 #cssmenu > .primary-menu > li {
     display:inline-block;
-    margin-left: 15px;       /* This is when the drop down box appears */
     position: relative;
 }
 
