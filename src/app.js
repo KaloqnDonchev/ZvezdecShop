@@ -31,7 +31,7 @@ client.connect(() => {
     // perform actions on the collection object
     products.find().toArray().then((result) => {
         mongoDbObjects = result;
-        
+
         client.close();
     });
 });
@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname));
-  
+
 app.use(webpackHotMiddleware(compiler));
 
 app.get('/', (req, res) => {
@@ -157,14 +157,9 @@ app.post('/login', function (req, res) {
     });
 });
 
-app.get('/product', (req, res) => {
-    res.render('templates/PDP', {
-        item: mongoDbObjects[0].womens[0].products[0],
-    });
-app.get('/catalog', (req, res) =>{
+app.get('/catalog', (req, res) => {
 
     var gender = mongoDbObjects[0].db;
-    console.log(gender);
     var viewData = {
         catalog: gender
     }
@@ -207,7 +202,6 @@ app.get('/:gender/:product', function (req, res) {
 
     gender.forEach((genderElem) => {
         if (req.params.gender === genderElem.name) {
-            console.log(genderElem);
             const productKeys = genderElem.data;
             productKeys.forEach((item) => {
                 if (req.params.product === item.name) {
@@ -228,6 +222,36 @@ app.get('/:gender/:product', function (req, res) {
     }
 });
 
+app.get('/:gender/:product/:id', function (req, res) {
+    const gender = mongoDbObjects[0].db;
+    let renderError = true;
+
+    gender.forEach((genderElem) => {
+        if (req.params.gender === genderElem.name) {
+            const productKeys = genderElem.data;
+            productKeys.forEach((item) => {
+                if (req.params.product === item.name) {
+                    const clothesName = item.products;
+                    clothesName.forEach((itemName) => {
+                        if (req.params.id === itemName.name) {
+                            var viewData = {
+                                item: itemName
+                            };
+                            res.render('templates/PDP', viewData);
+                            renderError = false;
+                        }
+                    })
+
+                }
+
+            });
+        }
+    });
+
+    if (renderError) {
+        res.render('templates/error');
+    }
+});
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
