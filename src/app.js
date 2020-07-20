@@ -31,7 +31,7 @@ client.connect(() => {
     // perform actions on the collection object
     products.find().toArray().then((result) => {
         mongoDbObjects = result;
-
+        
         client.close();
     });
 });
@@ -47,9 +47,9 @@ app.use(express.static(__dirname));
 app.use(webpackHotMiddleware(compiler));
 
 app.get('/', (req, res) => {
-    var elem1 = mongoDbObjects[0].womens[0].products[1];
-    var elem2 = mongoDbObjects[0].womens[1].products[0];
-    var elem3 = mongoDbObjects[0].womens[2].products[0];
+    var elem1 = mongoDbObjects[0].db[0].data[0].products[0];
+    var elem2 = mongoDbObjects[0].db[0].data[1].products[0];
+    var elem3 = mongoDbObjects[0].db[0].data[2].products[0];
 
     var featuredItems = [elem1, elem2, elem3];
 
@@ -161,6 +161,15 @@ app.get('/product', (req, res) => {
     res.render('templates/PDP', {
         item: mongoDbObjects[0].womens[0].products[0],
     });
+app.get('/catalog', (req, res) =>{
+
+    var gender = mongoDbObjects[0].db;
+    console.log(gender);
+    var viewData = {
+        catalog: gender
+    }
+
+    res.render('templates/catalog', viewData);
 });
 
 app.get('/contributions', (req, res) => {
@@ -172,13 +181,13 @@ app.get('/itemboxes', (req, res) => {
 });
 
 app.get('/:gender', function (req, res) {
-    const genderKeys = Object.keys(mongoDbObjects[0]);
+    const gender = mongoDbObjects[0].db;
     let renderError = true;
 
-    genderKeys.forEach(element => {
-        if (req.params.gender === element) {
+    gender.forEach((element) => {
+        if (req.params.gender === element.name) {
             var viewData = {
-                categories: mongoDbObjects[0][element],
+                categories: element,
                 path: req.params.gender,
             };
 
@@ -193,13 +202,14 @@ app.get('/:gender', function (req, res) {
 });
 
 app.get('/:gender/:product', function (req, res) {
-    const genderKeys = Object.keys(mongoDbObjects[0]);
+    const gender = mongoDbObjects[0].db;
     let renderError = true;
 
-    genderKeys.forEach(genderName => {
-        if (req.params.gender === genderName) {
-            const productKeys = mongoDbObjects[0][genderName];
-            productKeys.forEach(item => {
+    gender.forEach((genderElem) => {
+        if (req.params.gender === genderElem.name) {
+            console.log(genderElem);
+            const productKeys = genderElem.data;
+            productKeys.forEach((item) => {
                 if (req.params.product === item.name) {
                     var viewData = {
                         items: item.products,

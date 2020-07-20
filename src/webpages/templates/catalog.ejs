@@ -1,0 +1,17 @@
+<%- include("../components/header.ejs") %>
+<body>
+
+    <%- include("../components/navigation.ejs") %>
+        <% catalog.forEach((element) =>{ %>
+
+            <div>
+                <%= element.name %>
+            </div>
+
+        <% }) %>
+
+    <%- include("../components/footer.ejs") %>
+
+</body>
+
+</html>
