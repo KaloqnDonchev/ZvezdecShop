@@ -28,6 +28,7 @@ var init = () => {
                 return responseAsString.json();
             }).then((userObject) => {
                 var objectAsString = JSON.stringify(userObject);
+                
                 localStorage.setItem('user', objectAsString);
                 location.assign(document.location.origin);
             }).catch((err) => console.error(err));

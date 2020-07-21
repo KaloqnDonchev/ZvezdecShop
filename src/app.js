@@ -15,6 +15,7 @@ require('dotenv').config();
 
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
+let productObjects = [];
 
 const salt = process.env.ENCRYPTION_SALT;
 
@@ -176,6 +177,13 @@ app.get('/contributions', (req, res) => {
 
 app.get('/itemboxes', (req, res) => {
     res.render('templates/itemboxes');
+});
+
+app.post('/get-product', (req, res) => {
+    const productId = req.body;
+    const foundObject = productObjects.find((element) => element.name == productId);
+
+    res.json(foundObject);
 });
 
 app.get('/:gender', function (req, res) {
