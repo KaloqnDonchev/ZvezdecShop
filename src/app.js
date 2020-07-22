@@ -13,7 +13,10 @@ const crypto = require('crypto');
 
 require('dotenv').config();
 
-var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
+const username = process.env.DB_USER;
+const password = process.env.DB_PASS;
+
+var mongoUrl = `mongodb+srv://${username}:${password}@cluster0-lk0al.mongodb.net/test`;
 let mongoDbObjects;
 let productObjects;
 

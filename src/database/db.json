@@ -12,8 +12,7 @@
             "title": "Unique 5 Tattoos",
             "body": "These tattoos are from our last collection. Very fancy, very cool looking. Simple and beautiful.",
             "price": "49.99",
-            "currency": "BGN",
-            "stock": 13
+            "currency": "BGN"
           },
           {
             "name": "face",
@@ -21,17 +20,14 @@
             "title": "Tripple Face",
             "body": "Awesomely looking girl face. Really enigmatic and interesting. Get it now!",
             "price": "29.99",
-            "currency": "BGN",
-            "stock": 10
+            "currency": "BGN"
           },
           {
             "name": "flower",
             "url": "/womens/tattoos/flower.jpg",
             "title": "Colorful Flower",
             "body": "Colorful Flower, simple, elegant and cute. Buy now!",
-            "price": "29.99",
-            "currency": "BGN",
-            "stock": 3
+            "price": "29.99"
           },
           {
             "name": "heart",
@@ -39,8 +35,7 @@
             "title": "Heart of Nature",
             "body": "For all nature lovers, heart filled with nature energy. Really cool-looking. Get yours today!",
             "price": "29.99",
-            "currency": "BGN",
-            "stock": 3
+            "currency": "BGN"
           }
         ]
       },
@@ -52,14 +47,7 @@
             "title": "Metal T-Shirt",
             "body": "Metal T-Shirt from the very last collection. Perfect for the summer. Stylish and Elegant.",
             "price": "39.99",
-            "currency": "BGN",
-            "sizes": [
-              "xs",
-              "s",
-              "m",
-              "l"
-            ],
-            "stock": 20
+            "currency": "BGN"
           },
           {
             "name": "tshirt2",
@@ -67,14 +55,7 @@
             "title": "Rock T-Shirt",
             "body": "Rock T-Shirt from our new collection. Perfect for the spring. 100% Cotton.",
             "price": "39.99",
-            "currency": "BGN",
-            "sizes": [
-              "s",
-              "m",
-              "l",
-              "xl"
-            ],
-            "stock": 0
+            "currency": "BGN"
           },
           {
             "name": "bring-me-the-horizon",
@@ -82,14 +63,8 @@
             "title": "Bring me the horizon T-Shirt",
             "body": "Bring me the horizon T-Shirt from the autumn collection. Only for TRUE fans. 95% Cotton.",
             "price": "39.99",
-            "currency": "BGN",
-            "sizes": [
-              "s",
-              "m",
-              "l",
-              "xl"
-            ],
-            "stock": 3
+            "currency": "BGN"
+            
           },
           {
             "name": "nickel-back",
@@ -97,16 +72,7 @@
             "title": "NICKELBACK T-Shirt",
             "body": "Stylish-looking T-Shirt with NICKELBACK's logo. Top-seller. 100% Cotton.",
             "price": "69.99",
-            "currency": "BGN",
-            "sizes": [
-              "xs",
-              "s",
-              "m",
-              "l",
-              "xl",
-              "xxl"
-            ],
-            "stock": 54
+            "currency": "BGN"
           }
         ]
       },
@@ -118,13 +84,7 @@
             "title": "Black Girl Magic Combo",
             "body": "Girl Combo product, simple, elegant and cute. Buy now!",
             "price": "59.99",
-            "currency": "BGN",
-            "sizes": [
-              "xs",
-              "s",
-              "m"
-            ],
-            "stock": 21
+            "currency": "BGN"
           },
           {
             "name": "roses",
@@ -132,14 +92,7 @@
             "title": "Black Roses Combo",
             "body": "Girl Combo product, simple, elegant and cute. Buy now!",
             "price": "99.99",
-            "currency": "BGN",
-            "sizes": [
-              "xs",
-              "s",
-              "m",
-              "l"
-            ],
-            "stock": 13
+            "currency": "BGN"
           }
         ]
       }

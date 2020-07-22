@@ -3,7 +3,7 @@ const init = () => {
     const buyButtons = document.querySelectorAll('.add-to-basket');
     if (buyButtons) {
         buyButtons.forEach((button) => {
-            button.addEventListener('click', (event) => {
+            button.addEventListener('click', () => {
                 if (localStorage.getItem('user')) {
                     const productId = button.dataset.id;
                     const bodyObj = {
