@@ -15,7 +15,7 @@ require('dotenv').config();
 
 var mongoUrl = 'mongodb+srv://admin123:admin321@cluster0-lk0al.mongodb.net/test';
 let mongoDbObjects;
-let productObjects = [];
+let productObjects;
 
 const salt = process.env.ENCRYPTION_SALT;
 
@@ -30,13 +30,20 @@ function newDBConnection() {
 let client = newDBConnection();
 client.connect(() => {
     const products = client.db('shop').collection('products');
-    // perform actions on the collection object
-    products.find().toArray().then((result) => {
-        mongoDbObjects = result;
+    const allProducts = client.db('shop').collection('allproducts');
 
-        client.close();
+    allProducts.find().toArray().then((result) => {
+        productObjects = result;
+    }).then(() => {
+        // perform actions on the collection object
+        products.find().toArray().then((result) => {
+            mongoDbObjects = result;
+
+            client.close();
+        });
     });
 });
+
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/webpages');
@@ -78,7 +85,7 @@ app.get('/signup', function (req, res) {
 app.post('/signup', (request, response) => {
     var userObject = request.body;
     userObject.basket = {
-        items: {},
+        items: [],
         shipping: {},
         paymentMethod: {}
 
@@ -153,7 +160,6 @@ app.post('/login', function (req, res) {
         };
 
         if (userObject) {
-            console.log('logged in');
             res.json(viewData);
         } else {
             res.send('Wrong username/password');
@@ -180,10 +186,16 @@ app.get('/itemboxes', (req, res) => {
 });
 
 app.post('/get-product', (req, res) => {
-    const productId = req.body;
-    const foundObject = productObjects.find((element) => element.name == productId);
-
-    res.json(foundObject);
+    let errorMessage = {
+        error: 'Product is not found'
+    };
+    const product = req.body;
+    const foundObject = productObjects.find((element) => element.name == product.name);
+    if (!foundObject) {
+        res.json(errorMessage);
+    } else {
+        res.json(foundObject);
+    }
 });
 
 app.get('/:gender', function (req, res) {
