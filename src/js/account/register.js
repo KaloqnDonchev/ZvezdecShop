@@ -78,7 +78,7 @@ const failmsg = () => document.createElement('p');
 
 var init = () => {
 
-    const button = document.querySelector('.registerButton');
+    const button = document.querySelector('#regButton.registerButton');
 
     if (button) {
         button.addEventListener('click', (e) => {
@@ -107,12 +107,10 @@ var init = () => {
 
             // send post request
             fetch('/signup', options).then((responseAsString) => {
-                console.log(responseAsString);
                 return responseAsString.json();
             }).then((messageObject) => {
-                console.log(messageObject);
                 displayError(messageObject.response);
-            }).catch((err) => console.error(err));
+            }).catch((err) => displayError(err));
 
 
         });

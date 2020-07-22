@@ -1,17 +1,20 @@
 const Toastify = require('toastify-js');
-const defautMessage = {
+const toastyObj = Toastify().options;
+
+const defaultObjectPrefs = {
     duration: 3000,
     gravity: 'top', // `top` or `bottom`
     position: 'center', // `left`, `center` or `right`
-    backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)'
 };
-const showMessage = function(message){
-    defautMessage.text = message;
-    Toastify(defautMessage).showToast();
+
+const showMessage = function(message, configObject) {
+    Object.assign(defaultObjectPrefs, toastyObj);
+    if (configObject) Object.assign(defaultObjectPrefs, configObject);
+    defaultObjectPrefs.text = message;
+    Toastify(defaultObjectPrefs).showToast();
 };
 
 const expObj = {
-    defaultMessage: defautMessage,
     showMessage: showMessage
 };
 

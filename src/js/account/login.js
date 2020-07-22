@@ -1,3 +1,5 @@
+const notificationLib = require('../libraries/showMessage');
+
 var init = () => {
 
     const buttonLogin = document.getElementById('loginbtn');
@@ -31,7 +33,7 @@ var init = () => {
                 
                 localStorage.setItem('user', objectAsString);
                 location.assign(document.location.origin);
-            }).catch((err) => console.error(err));
+            }).catch((err) => notificationLib.showMessage(err));
         });
 
     }

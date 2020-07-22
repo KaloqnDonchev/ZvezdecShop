@@ -35,10 +35,10 @@ client.connect(() => {
     const products = client.db('shop').collection('products');
     const allProducts = client.db('shop').collection('allproducts');
 
+    // perform actions on the collection object
     allProducts.find().toArray().then((result) => {
         productObjects = result;
     }).then(() => {
-        // perform actions on the collection object
         products.find().toArray().then((result) => {
             mongoDbObjects = result;
 
@@ -101,7 +101,7 @@ app.post('/signup', (request, response) => {
         const email = await userDB.findOne({
             email: userObject.email
         });
-
+ 
         const user = await userDB.findOne({
             username: userObject.username
         });
@@ -112,7 +112,7 @@ app.post('/signup', (request, response) => {
 
             userObject.password = mystr;
 
-            userDB.insertOne(userObject, (err, res) => {
+            userDB.insertOne(userObject, (err) => {
                 if (err)
                     throw err;
             });
@@ -222,7 +222,7 @@ app.get('/:gender', function (req, res) {
     }
 });
 
-app.get('/:gender/:product', function (req, res) {
+app.get('/:gender/:product', (req, res) => {
     const gender = mongoDbObjects[0].db;
     let renderError = true;
 
@@ -282,5 +282,6 @@ app.get('/:gender/:product/:id', function (req, res) {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`Server up and running on port ${PORT}`);
 });
