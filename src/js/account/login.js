@@ -1,4 +1,5 @@
 const notificationLib = require('../libraries/showMessage');
+const messageLib = require('../libraries/showMessage');
 
 var init = () => {
 
@@ -28,11 +29,14 @@ var init = () => {
             // send post request
             fetch('/login', options).then((responseAsString) => {
                 return responseAsString.json();
-            }).then((userObject) => {
-                var objectAsString = JSON.stringify(userObject);
-                
-                localStorage.setItem('user', objectAsString);
-                location.assign(document.location.origin);
+            }).then((response) => {
+                if (response.errorMessage) {
+                    messageLib.showMessage(response.errorMessage);
+                } else {
+                    var objectAsString = JSON.stringify(response);
+                    localStorage.setItem('user', objectAsString);
+                    location.assign(document.location.origin);
+                }
             }).catch((err) => notificationLib.showMessage(err));
         });
 

@@ -165,7 +165,9 @@ app.post('/login', function (req, res) {
         if (userObject) {
             res.json(viewData);
         } else {
-            res.send('Wrong username/password');
+            res.json({
+                errorMessage: 'Wrong username or password'
+            });
         }
     });
 });
@@ -199,6 +201,21 @@ app.post('/get-product', (req, res) => {
     } else {
         res.json(foundObject);
     }
+});
+
+app.post('/set-user-object', (req, res) => {
+    let userObject = req.body;
+    userObject = userObject.user;
+    delete userObject._id;
+
+    client = newDBConnection();
+    client.connect(async () => {
+        const query = { username: userObject.username };
+        client.db('shop').collection('users').replaceOne(query, userObject, (err) =>{
+            if (err) throw err;
+        });
+    });
+
 });
 
 app.get('/:gender', function (req, res) {

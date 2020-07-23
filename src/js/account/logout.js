@@ -12,8 +12,17 @@ var init = () => {
             logout.removeAttribute('href');
             logout.innerHTML = 'Logout';
 
+            const options = {
+                method: 'POST',
+                body: userString,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
             logout.addEventListener('click', (event) => {
                 event.preventDefault();
+                fetch('/set-user-object', options);
                 localStorage.removeItem('user');
                 location.assign(document.location.origin);
 
