@@ -575,9 +575,7 @@ li.cart:hover {
 }
 
 .shopstorybox-text p {
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 10px;
+    margin: 10px 50px 0 50px;
 }
 
 .shopstorybox-text {
@@ -1025,4 +1023,41 @@ h1 {
         right: 0;
         max-width: fit-content;
     }
+}
+
+
+.cart-item-image {
+    width: 140px;
+    height: 140px;
+    padding-bottom: 3px;
+}
+
+.remove-item {
+    background-color: rgb(138, 56, 56);
+    width: 140px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    width: 150px;
+}
+
+#cssmenu .primary-menu ul .cart-list a {
+    padding: 18px 15px;
+}
+
+#cssmenu .primary-menu ul .cart-list a:hover {
+    background-color: #265155;
+}
+
+.cart-item-title {
+    font-size: 15px;
+    padding: 4px 0;
+}
+
+.cart-item-price {
+    font-size: 20px;
+    padding: 4px 0;
 }

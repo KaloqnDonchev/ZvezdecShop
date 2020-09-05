@@ -1,4 +1,5 @@
 const messageLib = require('../libraries/showMessage');
+const { addToCart } = require('../cart/cart');
 const init = () => {
     const buyButtons = document.querySelectorAll('.add-to-basket');
     if (buyButtons) {
@@ -28,6 +29,7 @@ const init = () => {
                         userObject.user.basket.items.push(product);
                         const objectAsString = JSON.stringify(userObject);
                         localStorage.setItem('user', objectAsString);
+                        addToCart(product);
                     });
                 } else {
                     messageLib.showMessage('You must be logged in to buy this product');
