@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const crypto = require('crypto');
 
+const serial = require('generate-serial-key');
+
 require('dotenv').config();
 
 const username = process.env.DB_USER;
@@ -101,7 +103,7 @@ app.post('/signup', (request, response) => {
         const email = await userDB.findOne({
             email: userObject.email
         });
- 
+
         const user = await userDB.findOne({
             username: userObject.username
         });
@@ -172,6 +174,62 @@ app.post('/login', function (req, res) {
     });
 });
 
+app.get('/generate', (req, res) => {
+    const arrayCodes = [];
+
+    for (let i = 0; i < 5; i++) {
+        let serialNumber = serial.generate();
+        arrayCodes.push(serialNumber);
+    }
+    const codes = arrayCodes.map((code) => {
+        return {
+            key: code,
+            used: false,
+            money: Math.floor(Math.random() * Math.floor(60) + 40)
+        };
+    });
+
+
+    client = newDBConnection();
+    client.connect(async () => {
+        client.db('shop').collection('creditkeys').insertMany(codes, (err) => {
+            if (err) throw err;
+            client.close();
+        });
+    });
+
+    res.json(codes);
+
+});
+
+app.post('/redeem', (req, res) => {
+    let key = req.body;
+    let responseObject = {};
+    if (key) {
+        client = newDBConnection();
+        client.connect(async () => {
+            client.db('shop').collection('creditkeys').findOne({ key: key }, (err, result) => {
+                if (result.used) {
+                    responseObject.message = 'Code was used';
+                    responseObject.error = `${key} is used`;
+                    res.json(responseObject);
+                    client.close();
+                } else {
+                    responseObject.message = 'Code accepted';
+                    responseObject.money = result.money;
+                    result.used = true;
+                    client.db('shop').collection('creditkeys').updateOne({ key: key }, result, () => {
+                        res.json(responseObject);
+                        client.close();
+                    });
+                }
+            });
+        });
+    } else {
+        res.json({ message: 'No key' });
+    }
+});
+
 app.get('/catalog', (req, res) => {
 
     var gender = mongoDbObjects[0].db;
@@ -211,7 +269,7 @@ app.post('/set-user-object', (req, res) => {
     client = newDBConnection();
     client.connect(async () => {
         const query = { username: userObject.username };
-        client.db('shop').collection('users').replaceOne(query, userObject, (err) =>{
+        client.db('shop').collection('users').replaceOne(query, userObject, (err) => {
             if (err) throw err;
         });
     });
